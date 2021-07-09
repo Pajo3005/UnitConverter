@@ -1,0 +1,1865 @@
+#:import utils kivy.utils
+#:import Factory kivy.factory.Factory
+
+WindowManager:
+    MainWindow:
+    LengthWindow:
+    WeightWindow:
+    TimeWindow:
+    SpeedWindow:
+    VolumeWindow:
+    DataWindow:
+    TemperatureWindow:
+    AreaWindow:
+    CurrenciesWindow:
+    CalculatorWindow:
+
+<MainWindow>:
+    name: "main"
+
+    FloatLayout:
+
+        Label:
+            text: "Unit Converter"
+            text_size: self.size
+            font_size: 35
+            halign: 'center'
+            valign: 'middle'
+            size_hint: 0.465, 0.1
+            pos_hint: {"top": 0.98, "x": 0.03}
+            background_normal: ''
+            background_color: 20/255, 20/255, 20/255, 1
+            #or background_color: utils.get_color_from_hex('#Hexcode')
+
+
+        Label:
+            text: "V.1.1 | 22.06.21"
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            font_size: 35
+            size_hint: 0.465, 0.1
+            pos_hint: {"top": 0.98, "right": 0.97}
+            background_normal: ''
+            background_color: 0.270588, 0.5647058824, 0.6588235294, 1
+
+        RoundedButton:
+            text: "Length"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.86, "x": 0.03}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Length"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Weight"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.86, "right": 0.97}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Weight"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Time"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.695, "x": 0.03}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Time"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Speed"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.695, "right": 0.97}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Speed"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Volume"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.53, "x": 0.03}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Volume"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Data"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.53, "right": 0.97}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Data"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Temperature"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.365, "x": 0.03}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Temperature"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Area"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.365, "right": 0.97}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Area"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Currencies"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.200, "x": 0.03}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Currencies"
+            on_release: root.manager.transition.direction = "left"
+
+        RoundedButton:
+            text: "Calculator"
+            size_hint: 0.465, 0.16
+            pos_hint: {"top": 0.200, "right": 0.97}
+            font_size: 40
+            color: 0,0,0,1
+            on_release: app.root.current = "Calculator"
+            on_release: root.manager.transition.direction = "left"
+
+<LengthWindow>:
+    name: "Length"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            multiline: False
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion() # This calls the conversion function of the LengthWindow class
+        Spinner:
+            id: Unit_select
+            text: "Unit"
+            text_size: self.size
+            color: 1, 1, 1, 1
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'mm', 'cm', 'm', 'km', 'in', 'ft', 'yd', 'mile'
+            on_text:
+                root.do_conversion() # This calls the conversion function of the LengthWindow class
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+# Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "mm (millimeter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "cm (centimeter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "m (meter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "km (kilometer)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "in (inch)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "ft (foot)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "yd (yard)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "mile"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+
+<WeightWindow>:
+    name: "Weight"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            multiline: False
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion()
+
+        Spinner:
+            id: Unit_select
+            text: "Unit"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'mg', 'g', 'kg', 'ton', 'ton-US', 'ton-UK', 'lb', 'oz'
+            on_text:
+                root.do_conversion()
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+# Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "mg (milligram)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "g (gram)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "kg (kilogram)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "ton"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "ton-US"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "ton-UK"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "lb (pound)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "oz (ounce)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+
+<TimeWindow>:
+    name: "Time"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            multiline: False
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion() # This calls the conversion function of the TimeWindow class
+        Spinner:
+            id: Unit_select
+            text: "Unit"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'ms', 'second', 'minute', 'hour', 'day', 'week', 'month', 'year'
+            on_text:
+                root.do_conversion() # This calls the conversion function of the TimeWindow class
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+# Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "ms (millisecond)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "second"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "minute"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "hour"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "day"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "week"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "month"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "year"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+
+<SpeedWindow>:
+    name: "Speed"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            multiline: False
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion()
+
+        Spinner:
+            id: Unit_select
+            text: "Unit"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'm/s', 'km/s', 'km/h', 'mps', 'mph', 'knot', 'mach', 'c'
+            on_text:
+                root.do_conversion()
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+    # Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "m/s (meters/second)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "km/s (kilometer/second)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "km/h (kilometer/hour)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "mps (miles/second)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "mph (miles/hour)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "knot"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "mach"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "c (speed of light)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+
+<VolumeWindow>:
+    name: "Volume"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            multiline: False
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion()
+        Spinner:
+            id: Unit_select
+            text: "Unit"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'ml', 'l', 'm³', 'gallon(US)', 'gallon(UK)', 'fl.oz(US)', 'fl.oz(UK)', 'bbl(barrel)'
+            on_text:
+                root.do_conversion()
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+# Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "ml (milliliter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "l (liter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "m³ (cubic meter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "gallon(US)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "gallon(UK)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "fl.oz(US)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "fl.oz(UK)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "bbl(barrel)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+
+<DataWindow>:
+    name: "Data"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            multiline: False
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion() # This calls the conversion function of the LengthWindow class
+        Spinner:
+            text: "Unit"
+            id: Unit_select
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'bit', 'B', 'KB', 'MB', 'GB', 'TB', 'kbit/s', 'Mbit/s', 'Gbit/s'
+            on_text:
+                root.do_conversion() # This calls the conversion function of the LengthWindow class
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+# Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "bit"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "B (byte)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "KB (kilobyte)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "MB (megabyte)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "GB (gigabyte)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "TB (terabyte)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "kbit/s"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "Mbit/s"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.08, "x": 0.02}
+        Label:
+            text: "Gbit/s"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.08, "right": 0.98}
+
+<TemperatureWindow>:
+    name: "Temperature"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            multiline: False
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion()
+
+        Spinner:
+            id: Unit_select
+            text: "Unit"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: '°C', '°F', 'K'
+            on_text:
+                root.do_conversion()
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+    # Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "°C (Celsius)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "°F (Fahrenheit)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "K (Kelvin)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+
+<AreaWindow>:
+    name: "Area"
+
+    FloatLayout:
+        TextInput:
+            id: calc_input
+            text: ""
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            halign: "right"
+            valign: "middle"
+            font_size: 50
+            size_hint: (0.5, .08)
+            pos_hint: {"top": 0.98, "x": 0.25}
+            on_text:
+                root.do_conversion() # This calls the conversion function of the LengthWindow class
+
+        Spinner:
+            text: "Unit"
+            id: Unit_select
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "right": 0.98}
+            values: 'mm²', 'cm²', 'm²', 'a', 'ha', 'km²', 'in²', 'ft²', 'yd²'
+            on_text:
+                root.do_conversion() # This calls the conversion function of the LengthWindow class
+        Button:
+            text: "Home"
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            size_hint: (0.2, .08)
+            font_size: 35
+            pos_hint: {"top": 0.98, "x": 0.02}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+    # Unit conversion
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "x": 0.02}
+        Label:
+            text: "mm² (square millimeter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.88, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "x": 0.02}
+        Label:
+            text: "cm² (square centimeter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.78, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "x": 0.02}
+        Label:
+            text: "m² (square meter)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.68, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "x": 0.02}
+        Label:
+            text: "a (are)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.58, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "x": 0.02}
+        Label:
+            text: "ha (hectare)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.48, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "x": 0.02}
+        Label:
+            text: "km² (square kilometre)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.38, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "x": 0.02}
+        Label:
+            text: "in² (square inch)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.28, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "x": 0.02}
+        Label:
+            text: "ft² (square foot)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.18, "right": 0.98}
+        #row
+        Label:
+            text: "1"
+            text_size: self.size
+            halign: "right"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.08, "x": 0.02}
+        Label:
+            text: "yd² (square yard)"
+            text_size: self.size
+            halign: "left"
+            valign: "middle"
+            font_size: 35
+            size_hint: (0.45, .08)
+            pos_hint: {"top": 0.08, "right": 0.98}
+
+
+<CurrenciesWindow>:
+    name: "Currencies"
+
+    FloatLayout:
+    TextInput:
+        id: curr_input
+        text_size: self.size
+        background_normal: ""
+        background_color: 88/255, 88/255, 88/255, 1
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+        halign: "right"
+        valign: "middle"
+        font_size: 50
+        size_hint: (0.73, .08)
+        pos_hint: {"top": 0.98, "x": 0.25}
+        on_text: root.converter()
+
+    Spinner:
+        id: input_1
+        text: "USD"
+        text_size: self.size
+        halign: "center"
+        valign: "middle"
+        size_hint: (0.3, .08)
+        font_size: 35
+        pos_hint: {"top": 0.8, "x": 0.1}
+        values: 'EUR','IDR','BGN','ILS','GBP','DKK','CAD','JPY','HUF','RON','MYR','SEK','SGD','HKD','AUD','CHF','KRW','CNY','TRY','HRK','NZD','THB','USD','NOK','RUB','INR','MXN','CZK','BRL','PLN','PHP','ZAR'
+        on_text: root.converter()
+
+
+
+    Spinner:
+        id: input_2
+        text: "EUR"
+        text_size: self.size
+        halign: "center"
+        valign: "middle"
+        size_hint: (0.3, .08)
+        font_size: 35
+        pos_hint: {"top": 0.8, "x": 0.6}
+        values: 'EUR','IDR','BGN','ILS','GBP','DKK','CAD','JPY','HUF','RON','MYR','SEK','SGD','HKD','AUD','CHF','KRW','CNY','TRY','HRK','NZD','THB','USD','NOK','RUB','INR','MXN','CZK','BRL','PLN','PHP','ZAR'
+        on_text: root.converter()
+
+    Label:
+        text: "to"
+        text_size: self.size
+        halign: "center"
+        valign: "middle"
+        font_size: 35
+        size_hint: (0.2, .08)
+        pos_hint: {"top": 0.8, "x": 0.4}
+
+
+
+    Button:
+        text: "Home"
+        text_size: self.size
+        halign: "center"
+        valign: "middle"
+        size_hint: (0.2, .08)
+        font_size: 35
+        pos_hint: {"top": 0.98, "x": 0.02}
+        on_release:
+            app.root.current = "main"
+            root.manager.transition.direction = "right"
+
+# Unit conversion
+
+    #row
+    Label:
+        id: value_1
+        text: ""
+        text_size: self.size
+        halign: "right"
+        valign: "middle"
+        font_size: 35
+        size_hint: (0.45, .08)
+        pos_hint: {"top": 0.5, "x": 0.02}
+        on_text: root.converter()
+
+    Label:
+        id: curr_output
+        text : "EUR"
+        text_size: self.size
+        halign: "left"
+        valign: "middle"
+        font_size: 35
+        size_hint: (0.45, .08)
+        pos_hint: {"top": 0.5, "x": 0.6}
+
+<CalculatorWindow>:
+    name: "Calculator"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        TextInput:
+            id: calc_input
+            text: "0"
+            text_size: self.size
+            background_normal: ""
+            background_color: 88/255, 88/255, 88/255, 1
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+            halign: "right"
+            font_size: 40
+            size_hint: (1, .15)
+
+        GridLayout:
+            size_hint: (1, .85)
+            cols: 4
+            rows: 5
+
+            # Row
+            Button:
+                size_hint: (.2, .2)
+                font_size: 20
+                text: 'Go Home'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "<<"
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.remove()
+            Button:
+                id: clear
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "C"
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.clear()
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "/"
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.math_sign("/")
+
+            # Row
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "7"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(7)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "8"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(8)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "9"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(9)
+
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "x"
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.math_sign("*")
+            # Row
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "4"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(4)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "5"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(5)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "6"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(6)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "-"
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.math_sign("-")
+            # Row
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "1"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(1)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "2"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(2)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "3"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(3)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "+"
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.math_sign("+")
+
+            # Row
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "+/-"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.pos_neg()
+
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "0"
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.button_press(0)
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "."
+                color: 0,0,0,1
+                background_normal: ""
+                background_color: (255/255, 183/255, 70/255, 1)
+                background_down: ""
+                on_press: root.dot()
+
+            Button:
+                size_hint: (.2, .2)
+                font_size: 32
+                text: "="
+                background_normal: ""
+                background_color: (15/255, 33/255, 67/255, 1)
+                background_down: ""
+                on_press: root.equals()
+
+<RoundedButton@Button>
+    background_color: 0,0,0,0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: 255/255, 183/255, 70/255, 1
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [20]
+
+
+
+
+
